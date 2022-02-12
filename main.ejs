@@ -1,0 +1,80 @@
+<%- include('../partials/header'); -%> 
+<%- include('../partials/menu'); -%> 
+    <main>
+      <!-- start the main navbar/div-->
+      <div class="" style="background-color: #0f415c;">
+        <div class="container-fluid" style="padding: 2%; ">
+          <form class="" action="/get_feed" method="post">
+            <div class="row">
+              <div class="col-5">
+                <input class="form-control" id="city" type="text" name="city" placeholder="Enter a city">
+                <button class="btn btn-light" type="submit" name="submitButton" ><a href=""></a>Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end the main navbar/div-->
+      <!--<form class="form"action="/submit_review" method="post" id="enterReview_db"></form>-->
+        <% if (error) { %>
+          <div class="alert alert-danger"><%- message %></div>
+        <% } %>
+        <% if (items) { %>
+          <div class="card-columns">
+            <%items.forEach(function(obj){%>
+              <div class="card-columns">
+                <div class="card" style="width: 18rem;">
+                  <h4 class="card-title"> <%- obj.name  %> </h4>
+                  <p class="card-text">type: <br><%- obj.brewery_type %> <br> </p>
+                  <p class="card-text">Address: <br><%- obj.street %> </p>
+                  <div class="text-center">
+                    <a
+                      id = "<%-obj.name %>"
+                      href="#reviewModal"
+                      class="btn btn-info"
+                      name="coolcool"
+                      data-toggle="modal"
+                      onclick="openModal()">Add Review</a>
+                  </div>
+                </div>  
+              </div>
+              <!--onclick="openModal(this.id)">Add Review</a>-->
+              <!-- Iterate the items object & update the cards variable -->
+            <% }); %>
+          </div>
+        <% } %> 
+      <!-- <div class="container" id="brewCards">
+         placeholder for the cards about each brewery
+      </div> -->
+      <form class="form"action="/submit_review" method="post" id="enterReview_db">
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                <button
+                  type="submit"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="close_modal"></button>
+              </div>
+              <div id="cool" class="modal-body">
+                  <div class="mb-3">
+                    <label id="review_brew_name" name="name_of_review" class="col-form-label">Brewery Name:</label>
+                    <input type="text" class="form-control" name="brew_namee" id="brew_name">
+                  </div>
+                  <div class="mb-3">
+                    <label id="review_Brew" class="col-form-label">Add review here:</label>
+                    <input type="text" class="form-control" name="review_review" id="review_text" placeholder="Type review">
+                    <!--<textarea class="form-control" id="review_text"></textarea>-->
+                  </div>
+              </div>
+                <!--<form class="form" action="/render_reviews" method="post" id="rendering_reviews">-->
+                  <button id="submitReview" type="submit" class="btn btn-primary">Submit</button>
+                <!--</form>-->
+            </div>
+          </div>
+        </div>
+    </form>
+  </main>
+<%- include('../partials/footer'); -%>
